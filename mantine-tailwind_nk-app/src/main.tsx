@@ -7,7 +7,7 @@ import "@mantine/tiptap/styles.css";
 import "@mantine/code-highlight/styles.css";
 import "@mantine/carousel/styles.css";
 import './index.css';
-import { createTheme, MantineProvider } from '@mantine/core';
+import { createTheme, localStorageColorSchemeManager, MantineProvider } from '@mantine/core';
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
   primaryColor: "cyan",
@@ -27,9 +27,13 @@ const theme = createTheme({
     ],
   },
 });
+
+const colorSchemeManager = localStorageColorSchemeManager({
+  key: "my-app-color-scheme",
+});
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider defaultColorScheme="auto" theme={theme}>
+    <MantineProvider colorSchemeManager={colorSchemeManager}>
       <App />
     </MantineProvider>
   </React.StrictMode>

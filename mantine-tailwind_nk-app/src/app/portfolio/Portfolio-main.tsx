@@ -1,16 +1,36 @@
+import { useEffect, useState } from "react";
 import { EditorComponent } from "../../components/editor/Editor-comp";
+import { MantineColorScheme, useMantineColorScheme } from "@mantine/core";
 
 const PortfolioMain = () => {
+  const { setColorScheme } = useMantineColorScheme();
 
-    return (
-        <div>
-            <EditorComponent content={content} isEditable={true} />
-        </div>
-    );
-}
+  useEffect(() => {
+    const handleMessage = (event: any) => {
+      if (event.origin !== "http://localhost:5173") return;
+            console.log(event.data.theme);
+
+      if (event.data.theme === "dark") {
+        setColorScheme("dark");
+      } else {
+        setColorScheme("light");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [ setColorScheme ]);
+  return (
+    <div>
+      <EditorComponent content={content} isEditable={true} />
+    </div>
+  );
+};
 
 export default PortfolioMain;
-
 
 const content = `<h2 style="text-align: center">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a target="_blank" rel="noopener noreferrer" href="https://tiptap.dev/">Tiptap.dev</a> and supports all of its features:</p><ul><li><p>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s></p></li><li><p>Headings (h1-h6)</p></li><li><p>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</p></li><li><p>Ordered and bullet lists</p></li><li><p>Text align&nbsp;</p></li><li><p>And all <a target="_blank" rel="noopener noreferrer" href="https://tiptap.dev/extensions">other extensions</a></p></li></ul><pre><code class="language-tsx">
 // Valid braces Kata – https://www.codewars.com/kata/5277c8a221e209d3f6000b56

@@ -1,10 +1,8 @@
 import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
 import { CodeHighlightDemo } from "./app/blog/blog";
 import Landing from "./app/landing/landing";
-import { NotFound } from "./app/notfound/NotFound";
+import PortfolioMain from "./app/portfolio/Portfolio-main";
 import Portfolio from "./app/Portfolio_copy/Portfolio";
-import { FooterSocial } from "./components/footer/FooterSocial/FooterSocial";
-import { MobileNavbar } from "./components/headers/MobileNavbar/MobileNavbar";
 
 
 const rootLink: {
@@ -29,37 +27,63 @@ const rootLink: {
     label: "Blogs",
     element: <CodeHighlightDemo />,
   },
+  {
+    link: "/editor",
+    label: "Editor",
+    element: <PortfolioMain />,
+  },
 ];
+
+// const appRout = createBrowserRouter([
+//   {
+//     path: "/",
+//     errorElement: <NotFound />,
+//     element: (
+//       <>
+//         <MobileNavbar links={rootLink}>
+//           <Outlet />
+//         </MobileNavbar>
+//         <FooterSocial />
+//       </>
+//     ),
+//     children: [
+//       {
+//         index: true,
+//         element: <Navigate to="home" />,
+//       },
+//       ...rootLink.map((item) => {
+//         return {
+//           path: item.link,
+//           element: item.element,
+//         };
+//       }),
+//       {
+//         path: "*",
+//         element: <NotFound />,
+//       },
+//     ],
+//   },
+// ]);
 
 const appRout = createBrowserRouter([
   {
     path: "/",
-    errorElement: <NotFound />,
     element: (
-      <>
-        <MobileNavbar links={rootLink}>
-          <Outlet />
-        </MobileNavbar>
-        <FooterSocial />
-      </>
+      <div className="p-0 m-0">
+        <Outlet />
+      </div>
     ),
     children: [
       {
         index: true,
-        element: <Navigate to="home" />,
+        element: <Navigate to="editor" />,
       },
-      ...rootLink.map((item) => {
-        return {
-          path: item.link,
-          element: item.element,
-        };
-      }),
       {
-        path: "*",
-        element: <NotFound />,
+        path: "editor",
+        element: <PortfolioMain />,
       },
+     
     ],
   },
 ]);
-
 export { appRout };

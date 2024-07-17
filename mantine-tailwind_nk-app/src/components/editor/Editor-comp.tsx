@@ -74,9 +74,11 @@ export function EditorComponent({ content, onUpdate, isEditable }: EditorProps) 
             onUpdate && onUpdate(editor.getHTML());
           }
         }}
+        m={0}
+        p={0}
       >
         {isEditable && (
-          <RichTextEditor.Toolbar sticky stickyOffset={60} className="justify-center ">
+          <RichTextEditor.Toolbar sticky stickyOffset={60} mb="xl"    mt="sm" className="justify-center ">
             <RichTextEditor.ControlsGroup>
               <RichTextEditor.ColorPicker
                 colors={[
